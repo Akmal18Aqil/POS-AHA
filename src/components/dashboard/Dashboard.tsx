@@ -14,19 +14,11 @@ import {
   ArrowUpRight,
   ArrowDownRight
 } from 'lucide-react'
-import { getDashboardStats } from '@/lib/supabase'
 import { useAuth } from '@/contexts/AuthContext'
 import { useEffect } from 'react'
 import { useRouter } from 'next/navigation'
-
-interface DashboardStats {
-  totalProducts: number
-  todaySales: number
-  todaySalesCount: number
-  monthlyIncome: number
-  monthlyExpense: number
-  monthlyBalance: number
-}
+import { api } from '@/lib/api'
+import { DashboardStats } from '@/types'
 
 export default function Dashboard() {
   const { user, tenant, signOut, isOwner } = useAuth()
@@ -37,7 +29,7 @@ export default function Dashboard() {
   useEffect(() => {
     const loadStats = async () => {
       try {
-        const dashboardStats = await getDashboardStats()
+        const dashboardStats = await api.dashboard.get()
         setStats(dashboardStats)
       } catch (error) {
         console.error('Error loading dashboard stats:', error)

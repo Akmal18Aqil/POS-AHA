@@ -21,7 +21,8 @@ import {
 } from '@/components/ui/select'
 import { Switch } from '@/components/ui/switch'
 import { Textarea } from '@/components/ui/textarea'
-import { createProduct, updateProduct, getCategories, Category, Product } from '@/lib/supabase'
+import { getCategories, Category, Product } from '@/lib/supabase'
+import { api } from '@/lib/api'
 
 interface ProductFormProps {
     isOpen: boolean
@@ -111,9 +112,9 @@ export default function ProductForm({
             }
 
             if (initialData) {
-                await updateProduct(initialData.id, productData as any)
+                await api.products.update(initialData.id, productData as any)
             } else {
-                await createProduct(productData as any)
+                await api.products.create(productData as any)
             }
 
             onSuccess()
