@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { api } from '@/lib/api'
 import { Finance } from '@/lib/supabase'
+import { useRequireAuth } from '@/hooks/useRequireAuth'
 
 export interface FinanceFormData {
     type: 'income' | 'expense'
@@ -10,6 +11,7 @@ export interface FinanceFormData {
 }
 
 export function useFinance() {
+    useRequireAuth()
     const [finances, setFinances] = useState<Finance[]>([])
     const [loading, setLoading] = useState(true)
     const [isFormOpen, setIsFormOpen] = useState(false)

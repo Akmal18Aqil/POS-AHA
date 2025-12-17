@@ -1,9 +1,11 @@
 import { useState, useEffect } from 'react'
 import { api } from '@/lib/api'
 import { Product } from '@/lib/supabase'
+import { useRequireAuth } from '@/hooks/useRequireAuth'
 import { useRouter } from 'next/navigation'
 
 export function useProducts() {
+    useRequireAuth()
     const router = useRouter()
     const [products, setProducts] = useState<Product[]>([])
     const [loading, setLoading] = useState(true)

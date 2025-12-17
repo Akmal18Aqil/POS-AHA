@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { useRouter } from 'next/navigation'
 import { useAuth } from '@/contexts/AuthContext'
+import { useRequireAuth } from '@/hooks/useRequireAuth'
 import {
     getCategories,
     Product,
@@ -25,6 +26,8 @@ export interface LastSaleData {
 export function usePOS() {
     const router = useRouter()
     const { user, tenant } = useAuth()
+    useRequireAuth() // Protect this route
+
     const [products, setProducts] = useState<Product[]>([])
     const [categories, setCategories] = useState<Category[]>([])
     const [loading, setLoading] = useState(true)
